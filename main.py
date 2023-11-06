@@ -7,6 +7,7 @@ Copyright (c) 2023 qdiaps
 
 import asyncio
 import json
+import text
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
@@ -17,7 +18,7 @@ dp = Dispatcher()
 
 @dp.message(Command('start'))
 async def command_start(message: Message):
-  await message.answer(text=f'Start bot')
+  await message.answer(text=f'{text.start_text}')
 
 @dp.message()
 async def echo(message: Message):
@@ -33,10 +34,10 @@ def start_settings():
     from aiogram.client.session.aiohttp import AiohttpSession
     session = AiohttpSession(proxy='http://proxy.server:3128')
     bot = Bot(token=f'{token}', session=session)
-    print('Все вірно.')
+
   else:
     bot = Bot(token=f'{token}')
-    print('Все вірно.')
+  print('Все вірно.')
 
 async def main():
   start_settings()
