@@ -5,4 +5,8 @@ Copyright (c) 2023 qdiaps
 Детальніше дивіться у файлі LICENSE.
 """
 
-start_text = 'Привіт я бот'
+def serialization(object):
+	pass
+
+def deserialization():
+	return None
