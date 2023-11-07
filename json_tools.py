@@ -5,8 +5,17 @@ Copyright (c) 2023 qdiaps
 Детальніше дивіться у файлі LICENSE.
 """
 
-def serialization(object):
-	pass
+import json
 
-def deserialization():
-	return None
+from os.path import isfile
+
+def serialization(to_json, path):
+	with open(path, 'w') as file:
+		json.dump(to_json, file, ensure_ascii=False, sort_keys=True, indent=2)
+
+def deserialization(path):
+	if isfile(path):
+		with open(path) as file:
+			return json.load(file)
+	else:
+		print(f'Такого файлу немає: {path}')
