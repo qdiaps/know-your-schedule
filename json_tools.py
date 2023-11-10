@@ -14,7 +14,12 @@ def serialization(to_json, path):
 
 def deserialization(path):
 	if os.path.isfile(path):
-		with open(path) as file:
-			return json.load(file)
+		try:
+			with open(path) as file:
+				return json.load(file)
+		except Exception:
+			print('Exception: json_tools.py -> deserialization()')
+		finally:
+			return 
 	else:
 		open(path, 'w')
