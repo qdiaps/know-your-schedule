@@ -1,20 +1,4 @@
-from aiogram.types import (
-   ReplyKeyboardMarkup,
-   KeyboardButton,
-   InlineKeyboardMarkup,
-   InlineKeyboardButton
-)
-
-start_button = ReplyKeyboardMarkup(
-   keyboard=[
-      [
-         KeyboardButton(text='Розклад')
-      ]
-   ],
-   resize_keyboard=True,
-   one_time_keyboard=True,
-   input_field_placeholder='Оберіть операцію...'
-)
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 schedules_operation = InlineKeyboardMarkup(
    inline_keyboard=[
