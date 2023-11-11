@@ -12,10 +12,8 @@ from callbacks import user_callbacks
 from handlers import commands, messages
 
 async def main():
-  print('Потрібно запускати проксі? (y/n)')
-  answer_user = input()
-  print('Введіть токен боту:')
-  token = input()
+  answer_user = input('Потрібно запускати проксі? (y/n): ')
+  token = input('Введіть токен боту: ')
   bot = Bot(token=f'{token}')
   if answer_user == 'y':
     from aiogram.client.session.aiohttp import AiohttpSession
