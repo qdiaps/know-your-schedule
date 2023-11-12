@@ -6,7 +6,7 @@ from keyboards import inline
 router = Router()
 
 @router.message()
-async def message_handler(message: Message):
+async def message_handler(message: Message) -> None:
   msg = message.text.lower()
   if msg == 'розклад':
     await message.answer(text=f'{text.command_schedule}', reply_markup=inline.schedules_operation)
