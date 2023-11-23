@@ -65,3 +65,5 @@ docs/_build/
 # Windows files
 Thumbs.db
 
+# Json file
+*.json
