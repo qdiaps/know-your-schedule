@@ -12,13 +12,13 @@ from data import paths, schedule_tools, text
 router = Router()
 
 @router.message(F.text.lower().in_(['додати']))
-async def start_adding_handler(message: Message, state: FSMContext, bot: Bot):
+async def start_adding_handler(message: Message, state: FSMContext, bot: Bot) -> None:
    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
    await state.set_state(Add.school_name)
    await message.answer(text=f'{text.get_shool_name}', reply_markup=reply.remove_keyboard)
 
 @router.message(Add.school_name, F.text)
-async def add_school_handler(message: Message, state: FSMContext):
+async def add_school_handler(message: Message, state: FSMContext) -> None:
    schedules = deserialization(paths.schedules)
    if message.text not in schedules.keys():
       schedule_tools.add_new_school(message.text, schedules)
@@ -30,7 +30,7 @@ async def add_school_handler(message: Message, state: FSMContext):
    await state.set_state(Add.confirm_school_name)
 
 @router.message(Add.confirm_school_name, F.text)
-async def confirm_school_name(message: Message, state: FSMContext):
+async def confirm_school_name(message: Message, state: FSMContext) -> None:
    msg = message.text.lower()
    if msg == 'так':
       await state.set_state(Add.class_name)
@@ -42,7 +42,7 @@ async def confirm_school_name(message: Message, state: FSMContext):
       await message.answer(text=f'{text.warning_is_not_command}')
 
 @router.message(Add.class_name, F.text)
-async def add_class_handler(message: Message, state: FSMContext):
+async def add_class_handler(message: Message, state: FSMContext) -> None:
    schedules = deserialization(paths.schedules)
    data = await state.get_data()
    if message.text not in schedules[data['school_name']].keys():
@@ -55,7 +55,7 @@ async def add_class_handler(message: Message, state: FSMContext):
    await state.set_state(Add.confirm_class_name)
 
 @router.message(Add.confirm_class_name, F.text)
-async def confirm_class_name(message: Message, state: FSMContext):
+async def confirm_class_name(message: Message, state: FSMContext) -> None:
    msg = message.text.lower()
    if msg == 'так':
       await state.set_state(Add.day)
@@ -67,7 +67,7 @@ async def confirm_class_name(message: Message, state: FSMContext):
       await message.answer(text=f'{warning_is_not_command}')
 
 @router.message(Add.day, F.text)
-async def weekday_selection_handler(message: Message, state: FSMContext, bot: Bot):
+async def weekday_selection_handler(message: Message, state: FSMContext, bot: Bot) -> None:
    msg = message.text
    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
    if msg in schedule_tools.default_days:
@@ -78,7 +78,7 @@ async def weekday_selection_handler(message: Message, state: FSMContext, bot: Bo
       await message.answer(text=f'{text.warning_this_day_is_not}', reply_markup=reply.days)
 
 @router.message(Add.schedule, F.text)
-async def add_schedules_handler(message: Message, state: FSMContext):
+async def add_schedules_handler(message: Message, state: FSMContext) -> None:
    lessons = re.split(',', message.text)
    lessons = [lesson.lstrip() for lesson in lessons]
    i = 0
@@ -93,7 +93,7 @@ async def add_schedules_handler(message: Message, state: FSMContext):
    await message.answer(text=f'ось що вийшло: \n{text}все вірно? (так/ні)')
 
 @router.message(Add.confirm_schedules, F.text)
-async def confirm_schedules(message: Message, state: FSMContext):
+async def confirm_schedules(message: Message, state: FSMContext) -> None:
    msg = message.text.lower()
    if msg == 'так':
       data = await state.get_data()
