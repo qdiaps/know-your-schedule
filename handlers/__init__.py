@@ -1,1 +1,1 @@
-from . import commands, messages
+from . import commands, messages, add_schedules

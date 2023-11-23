@@ -8,8 +8,7 @@ Copyright (c) 2023 qdiaps
 import asyncio
 
 from aiogram import Bot, Dispatcher
-from callbacks import user_callbacks
-from handlers import commands, messages
+from handlers import commands, messages, add_schedules
 
 def start_bot(token: str, is_proxy: bool):
   bot = Bot(token=f'{token}')
@@ -31,7 +30,7 @@ async def main() -> None:
   dp = Dispatcher()
   dp.include_routers(
     commands.router,
-    user_callbacks.router,
+    add_schedules.router,
     messages.router
   )
   await bot.delete_webhook(drop_pending_updates=True)
