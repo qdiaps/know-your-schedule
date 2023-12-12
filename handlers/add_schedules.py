@@ -1,4 +1,3 @@
-import asyncio
 import re
 
 from aiogram import Router, F, Bot
@@ -64,7 +63,7 @@ async def confirm_class_name(message: Message, state: FSMContext) -> None:
       await state.clear()
       await message.answer(text=f'{text.next_button}', reply_markup=reply.main)
    else:
-      await message.answer(text=f'{warning_is_not_command}')
+      await message.answer(text=f'{text.warning_is_not_command}')
 
 @router.message(Add.day, F.text)
 async def weekday_selection_handler(message: Message, state: FSMContext, bot: Bot) -> None:

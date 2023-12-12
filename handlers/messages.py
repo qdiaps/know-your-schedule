@@ -1,6 +1,4 @@
-import asyncio
-
-from aiogram import Router, Bot, F
+from aiogram import Router, F
 from aiogram.types import Message
 from data import text
 from keyboards import reply
