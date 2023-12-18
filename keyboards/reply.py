@@ -69,3 +69,13 @@ yes_or_no = ReplyKeyboardMarkup(
     resize_keyboard=True,
     one_time_keyboard=True
 )
+
+exit_state = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Вихід')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
