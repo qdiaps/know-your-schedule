@@ -9,12 +9,6 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from handlers import commands, messages, add_schedules
-from data import paths, json_tools
-
-def settings() -> None:
-    user_in_state = json_tools.deserialization(paths.user_in_state)
-    user_in_state = {}
-    json_tools.serialization(user_in_state, paths.user_in_state)
 
 
 def start_bot(token: str, is_proxy: bool):
@@ -35,7 +29,6 @@ async def main() -> None:
     is_proxy = True if user_input_is_proxy == 'y' else False
     token = get_user_input('Введіть токен боту: ')
     bot = start_bot(token, is_proxy)
-    settings()
     print('Все вірно.')
     dp = Dispatcher()
     dp.include_routers(
