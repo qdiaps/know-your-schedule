@@ -9,6 +9,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from handlers import commands, messages, add_schedules
+from middlewares.check_chat_type import CheckChatType
 
 
 def start_bot(token: str, is_proxy: bool):
@@ -31,6 +32,7 @@ async def main() -> None:
     bot = start_bot(token, is_proxy)
     print('Все вірно.')
     dp = Dispatcher()
+    dp.message.middleware(CheckChatType())
     dp.include_routers(
         commands.router,
         add_schedules.router,
