@@ -22,6 +22,9 @@ async def start_adding_handler(message: Message, state: FSMContext) -> None:
 async def add_school_handler(message: Message, state: FSMContext) -> None:
     schedules = deserialization(paths.schedules)
     if message.text not in schedules.keys():
+        if '\n' in message.text:
+            await message.answer(text=f'{text.warning_check_to_line_break}')
+            return
         schedule_tools.add_new_school(message.text, schedules)
         serialization(schedules, paths.schedules)
         await message.answer(text=f'{text.school_added}', reply_markup=reply.yes_or_no)
@@ -49,6 +52,9 @@ async def add_class_handler(message: Message, state: FSMContext) -> None:
     schedules = deserialization(paths.schedules)
     data = await state.get_data()
     if message.text not in schedules[data['school_name']].keys():
+        if '\n' in message.text:
+            await message.answer(text=f'{text.warning_check_to_line_break}')
+            return
         schedule_tools.add_new_class(data['school_name'], message.text, schedules)
         serialization(schedules, paths.schedules)
         await message.answer(text=f'{text.class_added}', reply_markup=reply.yes_or_no)
@@ -84,6 +90,9 @@ async def weekday_selection_handler(message: Message, state: FSMContext) -> None
 
 @router.message(Add.schedule, F.text)
 async def add_schedules_handler(message: Message, state: FSMContext) -> None:
+    if '\n' in message.text:
+        await message.answer(text=f'{text.warning_check_to_line_break}')
+        return
     lessons = re.split(',', message.text)
     lessons = [lesson.lstrip() for lesson in lessons]
     for i in range(0, len(lessons)):
