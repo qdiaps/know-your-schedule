@@ -1,3 +1,5 @@
+import logging
+
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import StateFilter
@@ -15,10 +17,13 @@ operations = ('Школу', 'Клас', 'Розклад')
 async def delete(data: dict) -> None:
     schedules = deserialization(paths.schedules)
     if data['operation'] == operations[0]:
+        logging.info(f'Видалив школу з JSON -> {data["school_name"]}')
         del schedules[data['school_name']]
     elif data['operation'] == operations[1]:
+        logging.info(f'Видалив клас з JSON -> {data["class_name"]}')
         del schedules[data['school_name']][data['class_name']]
     elif data['operation'] == operations[2]:
+        logging.info(f'Видалив розклад з JSON -> {schedules[data["school_name"]][data["class_name"]][data["day"]]}')
         schedules[data['school_name']][data['class_name']][data['day']] = []
     serialization(schedules, paths.schedules)
 

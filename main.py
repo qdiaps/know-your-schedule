@@ -6,11 +6,13 @@ Copyright (c) 2023 qdiaps
 """
 
 import asyncio
+import logging
 
 from aiogram import Bot, Dispatcher
 from handlers import commands, messages, add_schedules, show_schedules, delete_schedules
 from callbacks import inline_navigation
 from middlewares.check_chat_type import CheckChatType
+from data import paths
 
 
 def start_bot(token: str, is_proxy: bool):
@@ -44,6 +46,9 @@ async def main() -> None:
     )
     await bot.delete_webhook(drop_pending_updates=True)
     print('Бот працює!')
+    logging.basicConfig(level=logging.INFO, filename=f'log/{paths.log}', 
+        format='%(asctime)s %(levelname)s | %(message)s | %(filename)s %(funcName)s')
+    logging.info('---- Запуск бота ----')
     await dp.start_polling(bot)
 
 if __name__ == '__main__':

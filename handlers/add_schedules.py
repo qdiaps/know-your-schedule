@@ -1,4 +1,5 @@
 import re
+import logging
 
 from aiogram import Router, F
 from aiogram.types import Message
@@ -27,6 +28,7 @@ async def add_school_handler(message: Message, state: FSMContext) -> None:
             await message.answer(text=f'{text.warning_check_to_line_break}')
             return
         schedule_tools.add_new_school(message.text, schedules)
+        logging.info(f'Додав нову школу в JSON -> {message.text}')
         serialization(schedules, paths.schedules)
         await message.answer(text=f'{text.school_added}', reply_markup=reply.yes_or_no)
     else:
@@ -57,6 +59,7 @@ async def add_class_handler(message: Message, state: FSMContext) -> None:
             await message.answer(text=f'{text.warning_check_to_line_break}')
             return
         schedule_tools.add_new_class(data['school_name'], message.text, schedules)
+        logging.info(f'Додав новий клас в JSON -> {message.text}')
         serialization(schedules, paths.schedules)
         await message.answer(text=f'{text.class_added}', reply_markup=reply.yes_or_no)
     else:
@@ -117,6 +120,7 @@ async def confirm_schedules(message: Message, state: FSMContext) -> None:
         lessons = data['schedules']
         schedules = deserialization(paths.schedules)
         schedule_tools.add_new_schedule(school_name, class_name, day, lessons, schedules)
+        logging.info(f'Додано новий розклад в JSON -> {lessons}')
         serialization(schedules, paths.schedules)
         await state.clear()
         await message.answer(text=f'{text.schedules_added}', reply_markup=reply.main)
