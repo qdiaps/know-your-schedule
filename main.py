@@ -8,7 +8,8 @@ Copyright (c) 2023 qdiaps
 import asyncio
 
 from aiogram import Bot, Dispatcher
-from handlers import commands, messages, add_schedules
+from handlers import commands, messages, add_schedules, show_schedules
+from callbacks import inline_navigation
 from middlewares.check_chat_type import CheckChatType
 
 
@@ -35,7 +36,9 @@ async def main() -> None:
     dp.message.middleware(CheckChatType())
     dp.include_routers(
         commands.router,
+        inline_navigation.router,
         add_schedules.router,
+        show_schedules.router,
         messages.router
     )
     await bot.delete_webhook(drop_pending_updates=True)

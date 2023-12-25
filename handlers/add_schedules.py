@@ -2,6 +2,7 @@ import re
 
 from aiogram import Router, F
 from aiogram.types import Message
+from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from utils.states import Add
 from keyboards import reply
@@ -12,7 +13,7 @@ router = Router()
 users_data = {}
 
 
-@router.message(F.text.lower().in_(['додати']))
+@router.message(StateFilter(None), F.text.lower().in_(['додати']))
 async def start_adding_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(Add.school_name)
     await message.answer(text=f'{text.get_shool_name}', reply_markup=reply.exit_state)

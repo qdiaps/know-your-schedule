@@ -9,3 +9,10 @@ class Add(StatesGroup):
     day = State()
     schedule = State()
     confirm_schedules = State()
+
+
+class Show(StatesGroup):
+    school_name = State()
+    class_name = State()
+    confirm = State()
+    show_schedule = State()

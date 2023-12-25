@@ -13,6 +13,7 @@ async def command_start(message: Message, state: FSMContext) -> None:
     await state.clear()
     await message.answer(text=f'{text.start_text}', reply_markup=reply.main)
 
+
 @router.message(F.text.lower() == 'вихід')
 async def exit(message: Message, state: FSMContext):
     await state.clear()

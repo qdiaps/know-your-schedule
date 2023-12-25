@@ -13,19 +13,11 @@ main = ReplyKeyboardMarkup(
 schedules_operation = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='Додати')
-        ]
-    ],
-    resize_keyboard=True,
-    one_time_keyboard=True
-)
-
-main_add = ReplyKeyboardMarkup(
-    keyboard=[
+            KeyboardButton(text='Додати'),
+            KeyboardButton(text='Показати')
+        ],
         [
-            KeyboardButton(text='Школу'),
-            KeyboardButton(text='Клас'),
-            KeyboardButton(text='Розклад')
+            KeyboardButton(text='Вихід')
         ]
     ],
     resize_keyboard=True,
