@@ -17,6 +17,9 @@ schedules_operation = ReplyKeyboardMarkup(
             KeyboardButton(text='Показати')
         ],
         [
+            KeyboardButton(text='Видалити')
+        ],
+        [
             KeyboardButton(text='Вихід')
         ]
     ],
@@ -66,6 +69,18 @@ exit_state = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Вихід')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
+
+delete_operation = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Школу'),
+            KeyboardButton(text='Клас'),
+            KeyboardButton(text='Розклад')
         ]
     ],
     resize_keyboard=True,

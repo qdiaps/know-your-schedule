@@ -16,3 +16,12 @@ class Show(StatesGroup):
     class_name = State()
     confirm = State()
     show_schedule = State()
+
+
+class Delete(StatesGroup):
+    selection_operation = State()
+    school_name = State()
+    class_name = State()
+    day = State()
+    confirm = State()
+    
