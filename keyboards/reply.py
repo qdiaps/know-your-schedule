@@ -3,7 +3,12 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemo
 main = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='Розклад')
+            KeyboardButton(text='Розклад'),
+            KeyboardButton(text='Налаштування')
+        ],
+        [
+            KeyboardButton(text='Тех. підтримка'),
+            KeyboardButton(text='Інше')
         ]
     ],
     resize_keyboard=True,
@@ -17,7 +22,8 @@ schedules_operation = ReplyKeyboardMarkup(
             KeyboardButton(text='Показати')
         ],
         [
-            KeyboardButton(text='Видалити')
+            KeyboardButton(text='Видалити'),
+            KeyboardButton(text='Редагувати')
         ],
         [
             KeyboardButton(text='Вихід')
@@ -51,7 +57,21 @@ days = ReplyKeyboardMarkup(
     one_time_keyboard=True
 )
 
-yes_or_no = ReplyKeyboardMarkup(
+yes_or_edit_with_exit = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Так'),
+            KeyboardButton(text='Змінити')
+        ],
+        [
+            KeyboardButton(text='Вихід')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
+
+yes_or_no_with_exit = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Так'),
@@ -59,6 +79,17 @@ yes_or_no = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text='Вихід')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
+
+yes_or_no = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Так'),
+            KeyboardButton(text='Ні')
         ]
     ],
     resize_keyboard=True,
@@ -75,12 +106,32 @@ exit_state = ReplyKeyboardMarkup(
     one_time_keyboard=True
 )
 
-delete_operation = ReplyKeyboardMarkup(
+operations = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Школу'),
             KeyboardButton(text='Клас'),
             KeyboardButton(text='Розклад')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
+
+selection_school = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Немає навч. закладу')
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
+
+selection_class = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Немає класу')
         ]
     ],
     resize_keyboard=True,

@@ -1,1 +1,1 @@
-from . import commands, messages, add_schedules, delete_schedules
+from . import commands, messages, add_schedules, delete_schedules, selection_school

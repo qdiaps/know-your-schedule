@@ -25,3 +25,8 @@ class Delete(StatesGroup):
     day = State()
     confirm = State()
     
+
+class Selection(StatesGroup):
+    school_name = State()
+    class_name = State()
+    confirm = State()

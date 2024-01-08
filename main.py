@@ -9,7 +9,7 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
-from handlers import commands, messages, add_schedules, show_schedules, delete_schedules
+from handlers import commands, messages, add_schedules, show_schedules, delete_schedules, selection_school
 from callbacks import inline_navigation
 from middlewares.check_chat_type import CheckChatType
 from data import paths
@@ -39,6 +39,7 @@ async def main() -> None:
     dp.include_routers(
         commands.router,
         inline_navigation.router,
+        selection_school.router,
         add_schedules.router,
         show_schedules.router,
         delete_schedules.router,
