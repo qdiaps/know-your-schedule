@@ -5,6 +5,7 @@ from data import paths, text, user_data_operation
 from data.json_tools import deserialization
 from keyboards import reply
 from handlers.show_schedules import process_data
+from handlers.add_schedules import operations
 from utils.states import Selection, Add
 
 router = Router()
@@ -15,6 +16,7 @@ async def start_selection_school_handler(message: Message, state: FSMContext) ->
     schedules = deserialization(paths.schedules)
     if not schedules.keys():
         await state.set_state(Add.school_name)
+        await state.update_data(operation=operations[0])
         await message.answer(text=f'{text.warning_is_not_schools}')
         await message.answer(text=f'{text.get_shool_name}', reply_markup=reply.exit_state)
     else:
@@ -28,6 +30,7 @@ async def message_handler(message: Message, state: FSMContext) -> None:
     msg = message.text.lower()
     if msg == 'немає навч. закладу':
         await state.set_state(Add.school_name)
+        await state.update_data(operation=operations[0])
         await message.answer(text=f'{text.get_shool_name}', reply_markup=reply.exit_state)
     else:
         await message.answer(text=f'{text.warning_is_not_command}')
@@ -39,6 +42,7 @@ async def selection_class_handler(callback: CallbackQuery, state: FSMContext) ->
     await state.update_data(school_name=callback.data)
     if not schedules[callback.data].keys():
         await state.set_state(Add.class_name)
+        await state.update_data(operation=operations[1])
         await callback.message.answer(text=f'{text.get_class_name}', reply_markup=reply.exit_state)
     else:
         builder = await process_data(state, schedules[callback.data])
@@ -54,6 +58,7 @@ async def message_handler_class(message: Message, state: FSMContext) -> None:
     msg = message.text.lower()
     if msg == 'немає класу':
         await state.set_state(Add.class_name)
+        await state.update_data(operation=operations[1])
         await message.answer(text=f'{text.get_class_name}', reply_markup=reply.exit_state)
     else:
         await message.answer(text=f'{text.warning_is_not_command}')

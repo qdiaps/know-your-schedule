@@ -33,7 +33,7 @@ async def confirm_delete(message: Message, state: FSMContext) -> None:
     await message.answer(text=f'{text.confirm_deleting}')
 
 
-@router.message(StateFilter(None), F.text.lower() == 'видалити')
+#@router.message(StateFilter(None), F.text.lower() == 'видалити')
 async def selection_operation_handler(message: Message, state: FSMContext) -> None:
     await state.clear()
     schedules = deserialization(paths.schedules)
@@ -41,7 +41,7 @@ async def selection_operation_handler(message: Message, state: FSMContext) -> No
         await message.answer(text=f'{text.warning_is_not_schools}', reply_markup=reply.main)
         return
     await state.set_state(Delete.selection_operation)
-    await message.answer(text=f'{text.what_to_remove}', reply_markup=reply.delete_operation)
+    await message.answer(text=f'{text.what_to_remove}', reply_markup=reply.operations)
 
 
 @router.message(Delete.selection_operation, F.text)
@@ -54,7 +54,7 @@ async def selection_school_handler(message: Message, state: FSMContext) -> None:
         await message.answer(text=f'{text.get_shool_name_for_delete}', reply_markup=reply.exit_state)
         await message.answer(text='<b><i>Школи: </i></b>', reply_markup=builder.as_markup())
     else:
-        await message.answer(text=f'{text.warning_is_not_command}', reply_markup=reply.delete_operation)
+        await message.answer(text=f'{text.warning_is_not_command}', reply_markup=reply.operations)
 
 
 @router.callback_query(Delete.school_name, F.data)
