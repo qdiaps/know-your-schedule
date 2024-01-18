@@ -21,11 +21,20 @@ class Data(Enum):
 
 
 async def get_connecting_info(user_id: int | str) -> tuple:
+    # connecting_info[0] = users[str(user_id)][Data.Connect_info.value][0]
+    # connecting_info[1] = users[str(user_id)][Data.Connect_info.value][1]
     users = deserialization(paths.users)
-    connecting_info = [None, None]
-    connecting_info[0] = users[str(user_id)][Data.Connect_info.value][0]
-    connecting_info[1] = users[str(user_id)][Data.Connect_info.value][1]
-    return connecting_info
+    school_name = users[str(user_id)][Data.Connect_info.value][0]
+    class_name = users[str(user_id)][Data.Connect_info.value][1]
+    schedules = deserialization(paths.schedules)
+    result = [None, None]
+    if school_name in schedules.keys():
+        result[0] = school_name
+        if class_name in schedules[school_name].keys():
+            result[1] = class_name
+    users[str(user_id)][Data.Connect_info.value] = result
+    serialization(users, paths.users)
+    return result
 
 
 async def get_user_contact(user_data: dict) -> tuple:
@@ -86,6 +95,13 @@ async def change_rang(new_rang: Rangs, user_id: str | int) -> None:
 async def get_rang(user_id: int | str) -> str:
     users = deserialization(paths.users)
     return users[str(user_id)][Data.Rang.value]
+
+
+async def reset_connection_info(user_id: int | str) -> None:
+    users = deserialization(paths.users)
+    users[str(user_id)][Data.Connect_info.value][0] = None
+    users[str(user_id)][Data.Connect_info.value][1] = None
+    serialization(users, paths.users)
 
 
 async def reset_connection_class(user_id: int | str) -> None:
